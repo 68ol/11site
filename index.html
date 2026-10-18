@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1911년 경성 · 京城</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Song+Myung&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --hanji:#f1e8d4; --hanji-2:#e7dbc0; --hanji-3:#d9c9a5;
+  --ink:#1f1b16; --ink-2:#4a4036; --muted:#7a6b58;
+  --ju:#a8321f; --ju-dk:#7e2414;
+  --cheong:#2c6a60; --cheong-dk:#1d4a43;
+  --jjok:#273f68; --hwang:#c49434; --mok:#5b3d26; --mok-dk:#3a2617;
+  --brush:'Song Myung','Gowun Batang','Noto Serif KR',serif;
+  --body:'Gowun Batang','Noto Serif KR','Nanum Myeongjo',serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.85;word-break:keep-all;overflow-wrap:break-word;
+  background:var(--hanji);
+  background-image:
+    radial-gradient(rgba(120,90,50,.07) 1px,transparent 1.2px),
+    radial-gradient(rgba(120,90,50,.05) 1px,transparent 1.2px),
+    linear-gradient(180deg,rgba(255,255,255,.25),rgba(0,0,0,0));
+  background-size:7px 7px,13px 13px,100% 100%;background-position:0 0,3px 5px,0 0}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ju);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* 단청 띠 */
+.dancheong{height:14px;background:
+  linear-gradient(90deg,var(--cheong) 0 18%,var(--hanji) 18% 20%,var(--ju) 20% 30%,var(--hanji) 30% 32%,var(--hwang) 32% 38%,var(--hanji) 38% 40%,var(--jjok) 40% 60%,var(--hanji) 60% 62%,var(--hwang) 62% 68%,var(--hanji) 68% 70%,var(--ju) 70% 80%,var(--hanji) 80% 82%,var(--cheong) 82% 100%) 0 0/120px 100%;
+  border-top:3px solid var(--mok-dk);border-bottom:3px solid var(--mok-dk)}
+
+/* 창살 */
+.lattice{background-color:var(--mok);background-image:
+  linear-gradient(90deg,transparent 46%,var(--mok-dk) 46% 54%,transparent 54%),
+  linear-gradient(0deg,transparent 46%,var(--mok-dk) 46% 54%,transparent 54%),
+  linear-gradient(90deg,rgba(241,232,212,.94),rgba(231,219,192,.94));
+  background-size:46px 46px,46px 46px,100% 100%}
+
+/* 대문 게이트 */
+#gate{position:fixed;inset:0;z-index:100;display:flex;overflow:hidden;background:var(--mok-dk)}
+#gate .door{flex:1;position:relative;transition:transform 1.5s cubic-bezier(.65,0,.35,1);border:10px solid var(--mok-dk);
+  background-color:#d8c9a8;background-image:
+    linear-gradient(90deg,transparent 44%,var(--mok) 44% 56%,transparent 56%),
+    linear-gradient(0deg,transparent 44%,var(--mok) 44% 56%,transparent 56%);
+  background-size:52px 52px;box-shadow:inset 0 0 0 6px var(--mok),inset 0 0 60px rgba(60,35,15,.45)}
+#gate .door.l{border-right-width:5px}
+#gate .door.r{border-left-width:5px}
+#gate.open .door.l{transform:translateX(-102%)}
+#gate.open .door.r{transform:translateX(102%)}
+#gate .ring{position:absolute;top:50%;width:46px;height:46px;margin-top:-23px;border:5px solid var(--hwang);border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.4)}
+#gate .door.l .ring{right:22px}#gate .door.r .ring{left:22px}
+#gate .plaque{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;text-align:center;transition:opacity .5s}
+#gate.open .plaque{opacity:0;pointer-events:none}
+.hyeonpan{display:inline-block;background:var(--ink);color:var(--hwang);border:6px solid var(--mok);outline:3px solid var(--hwang);outline-offset:-12px;padding:22px 34px 20px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.hyeonpan small{display:block;font-family:var(--body);font-size:13px;letter-spacing:.4em;color:#e9dcc0;margin-bottom:6px}
+.hyeonpan b{display:block;font-family:var(--brush);font-weight:400;font-size:clamp(46px,9vw,84px);line-height:1;letter-spacing:.08em}
+.hyeonpan span{display:block;font-family:var(--brush);font-size:20px;color:#e9dcc0;margin-top:8px;letter-spacing:.2em}
+.seal-btn{margin-top:26px;width:92px;height:92px;border:none;background:var(--ju);color:#fff3e4;font-family:var(--brush);font-size:23px;line-height:1.15;border-radius:6px;box-shadow:inset 0 0 0 4px var(--ju),inset 0 0 0 6px #f6dcc7,0 8px 18px rgba(0,0,0,.45);transform:rotate(-4deg);transition:transform .2s}
+.seal-btn:hover{transform:rotate(0) scale(1.05)}
+.gate-note{display:block;margin-top:12px;font-size:13px;color:#f1e8d4;text-shadow:0 1px 2px #000}
+
+/* 헤더 */
+header.site{position:sticky;top:0;z-index:40;background:var(--ink);color:var(--hanji);box-shadow:0 4px 0 var(--hwang)}
+header.site .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.brand i{font-style:normal;width:38px;height:38px;display:grid;place-items:center;background:var(--ju);color:#fff3e4;font-family:var(--brush);font-size:20px;border-radius:4px;box-shadow:inset 0 0 0 2px #f6dcc7}
+.brand b{font-family:var(--brush);font-weight:400;font-size:24px;letter-spacing:.06em}
+nav.gnb{margin-left:auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.gnb::-webkit-scrollbar{display:none}
+nav.gnb a{text-decoration:none;white-space:nowrap;padding:6px 12px;font-size:15.5px;color:#e9dcc0;border-radius:3px}
+nav.gnb a span{font-family:var(--brush);color:var(--hwang);margin-right:4px}
+nav.gnb a:hover,nav.gnb a.on{background:rgba(196,148,52,.18);color:#fff}
+
+/* 히어로 */
+.hero{position:relative;min-height:min(78vh,640px);display:flex;align-items:flex-end;overflow:hidden;color:#f6eedb}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://raw.githubusercontent.com/68ol/11/refs/heads/main/bk5.png') center/cover;filter:sepia(.45) saturate(.85) brightness(.75);transform:scale(1.35);transform-origin:right top}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,27,22,.1) 30%,rgba(31,27,22,.88))}
+.hero .wrap{position:relative;z-index:1;width:100%;display:flex;align-items:flex-end;gap:30px;padding-bottom:48px}
+.vtitle{display:flex;flex-direction:row-reverse;gap:.12em;flex-shrink:0;font-family:var(--brush);font-size:clamp(50px,7vw,84px);line-height:1.08;text-shadow:0 3px 14px rgba(0,0,0,.6)}
+.vtitle span{display:flex;flex-direction:column;align-items:center}
+.vtitle span.em{color:var(--hwang)}
+.vtitle i{font-style:normal}
+.hero-copy{max-width:540px;padding-bottom:8px}
+.hero-copy .date{display:inline-block;border:1px solid rgba(246,238,219,.5);padding:2px 12px;font-size:14px;letter-spacing:.12em;margin-bottom:14px}
+.hero-copy h1{font-family:var(--brush);font-weight:400;font-size:clamp(28px,4vw,40px);line-height:1.3;margin-bottom:12px}
+.hero-copy p{font-size:16px;color:#e9dcc0}
+.hero .stamp{position:absolute;right:24px;top:24px;z-index:1;width:74px;height:74px;border:3px solid var(--ju);color:var(--ju);font-family:var(--brush);font-size:17px;line-height:1.1;display:grid;place-items:center;text-align:center;transform:rotate(8deg);background:rgba(241,232,212,.85);border-radius:4px}
+
+/* 섹션 공통 */
+section.block{padding:72px 0 32px}
+.sec-h{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.sec-h .han{font-family:var(--brush);font-size:58px;line-height:1;color:var(--ju);width:72px;height:72px;display:grid;place-items:center;border:2px solid var(--ju);border-radius:4px;flex-shrink:0;background:rgba(255,255,255,.35)}
+.sec-h h2{font-family:var(--brush);font-weight:400;font-size:clamp(28px,3.4vw,38px);line-height:1.2}
+.sec-h p{color:var(--muted);font-size:15px}
+
+/* 序 */
+.scrolls{display:grid;grid-template-columns:1.4fr 1fr;gap:26px}
+.scroll{position:relative;background:#f8f1e1;padding:34px 30px 30px;box-shadow:0 1px 0 var(--hanji-3),0 12px 26px rgba(90,60,30,.14)}
+.scroll::before,.scroll::after{content:'';position:absolute;left:-8px;right:-8px;height:14px;background:linear-gradient(180deg,var(--mok),var(--mok-dk));border-radius:7px;box-shadow:0 2px 3px rgba(0,0,0,.25)}
+.scroll::before{top:-7px}.scroll::after{bottom:-7px}
+.scroll h3{font-family:var(--brush);font-weight:400;font-size:24px;color:var(--cheong-dk);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.scroll h3::before{content:'';width:10px;height:10px;background:var(--ju);transform:rotate(45deg)}
+.scroll p+p{margin-top:12px}
+.scroll .fore{margin-top:16px;padding:14px 16px;border-left:4px solid var(--ju);background:rgba(168,50,31,.06);color:var(--ink-2)}
+
+/* 세력 탭 */
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tags button{position:relative;border:none;background:var(--mok);color:#f1e8d4;padding:10px 18px 10px 26px;font-family:var(--brush);font-size:19px;border-radius:3px 10px 10px 3px;box-shadow:0 3px 0 var(--mok-dk);transition:transform .15s}
+.tags button::before{content:'';position:absolute;left:9px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--hanji)}
+.tags button:hover{transform:translateY(-2px)}
+.tags button[aria-selected="true"]{background:var(--ju);box-shadow:0 3px 0 var(--ju-dk)}
+.region{display:none}.region.on{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.region-head{display:grid;grid-template-columns:1.25fr 1fr;background:#f8f1e1;border:1px solid var(--hanji-3);margin-bottom:24px;box-shadow:0 10px 24px rgba(90,60,30,.1)}
+.region-head img{width:100%;height:100%;min-height:220px;object-fit:cover;filter:sepia(.2)}
+.region-head div{padding:26px 26px 24px;display:flex;flex-direction:column;justify-content:center}
+.region-head .kicker{font-size:13px;letter-spacing:.2em;color:var(--muted)}
+.region-head h3{font-family:var(--brush);font-weight:400;font-size:36px;line-height:1.2;margin:4px 0 10px}
+.region-head h3 small{font-size:18px;color:var(--ju);margin-left:8px}
+.region-head p{color:var(--ink-2)}
+
+/* 인물 카드 */
+.people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.pcard{border:none;background:none;padding:0;text-align:left}
+.pcard .frame{position:relative;padding:8px;background:var(--mok);box-shadow:inset 0 0 0 2px var(--mok-dk),0 8px 18px rgba(60,35,15,.22);transition:transform .2s}
+.pcard .frame::after{content:'';position:absolute;inset:8px;box-shadow:inset 0 0 0 1px rgba(196,148,52,.6)}
+.pcard img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;filter:sepia(.12)}
+.pcard:hover .frame{transform:translateY(-4px) rotate(-.6deg)}
+.pcard .cap{display:flex;align-items:baseline;gap:8px;margin-top:10px}
+.pcard b{font-family:var(--brush);font-weight:400;font-size:24px;line-height:1.2}
+.pcard .age{font-size:13px;color:var(--muted)}
+.pcard .job{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:2px}
+
+/* 장소 */
+.places-group{margin-bottom:34px}
+.places-group h3{font-family:var(--brush);font-weight:400;font-size:26px;display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.places-group h3::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--hanji-3),transparent)}
+.places{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.place{background:#f8f1e1;border:1px solid var(--hanji-3);box-shadow:0 6px 14px rgba(90,60,30,.08);overflow:hidden}
+.place button{display:block;border:none;padding:0;background:none;width:100%}
+.place img{width:100%;aspect-ratio:2/1;object-fit:cover;transition:transform .4s}
+.place button:hover img{transform:scale(1.04)}
+.place div{padding:12px 16px 16px}
+.place b{font-family:var(--brush);font-weight:400;font-size:21px;display:block}
+.place p{font-size:14.5px;color:var(--ink-2);line-height:1.7}
+
+/* 연표 */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:'';position:absolute;left:11px;top:6px;bottom:6px;width:3px;background:linear-gradient(180deg,var(--ju),var(--cheong))}
+.tl{position:relative;margin-bottom:24px}
+.tl::before{content:'';position:absolute;left:-30px;top:6px;width:16px;height:16px;background:var(--hanji);border:3px solid var(--ju);transform:rotate(45deg)}
+.tl.now::before{background:var(--ju)}
+.tl h4{font-family:var(--brush);font-weight:400;font-size:26px;line-height:1.2;color:var(--ju-dk)}
+.tl ul{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.tl li{background:#f8f1e1;border:1px solid var(--hanji-3);padding:10px 14px;font-size:15px;line-height:1.65}
+.tl li b{display:block;color:var(--cheong-dk)}
+
+/* 모달 */
+#modal{position:fixed;inset:0;z-index:80;background:rgba(25,20,15,.78);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 14px}
+#modal.on{display:flex}
+.sheet{width:min(780px,100%);background:var(--hanji);background-image:radial-gradient(rgba(120,90,50,.07) 1px,transparent 1.2px);background-size:7px 7px;box-shadow:0 30px 60px rgba(0,0,0,.45);position:relative;animation:fade .3s ease}
+.sheet .dancheong{height:10px}
+.sheet .namecard{width:100%;aspect-ratio:2/1;object-fit:cover}
+.sheet .body{padding:22px 28px 28px}
+.sheet h3{font-family:var(--brush);font-weight:400;font-size:38px;line-height:1.2}
+.sheet .sub{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+.sheet dl{display:grid;grid-template-columns:88px 1fr;margin:0;border-top:2px solid var(--ink)}
+.sheet dt,.sheet dd{margin:0;padding:10px 0;border-bottom:1px solid var(--hanji-3)}
+.sheet dt{font-family:var(--brush);font-size:17px;color:var(--cheong-dk)}
+.sheet dd{color:var(--ink-2)}
+.milseo{margin-top:18px;border:none;width:100%;text-align:left;background:#e8d9b8;padding:14px 18px;position:relative;box-shadow:inset 0 0 0 1px var(--hanji-3)}
+.milseo .lbl{font-family:var(--brush);font-size:19px;display:flex;align-items:center;gap:10px}
+.milseo .lbl i{font-style:normal;width:30px;height:30px;display:grid;place-items:center;background:var(--ju);color:#fff3e4;font-size:15px;border-radius:3px}
+.milseo .lbl small{font-family:var(--body);font-size:13px;color:var(--muted);margin-left:auto}
+.milseo .txt{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--mok);color:var(--ink)}
+.milseo.open .txt{display:block}
+.milseo.open .lbl small{display:none}
+#mclose{position:absolute;top:10px;right:10px;width:42px;height:42px;border-radius:50%;border:none;background:var(--ink);color:var(--hanji);font-size:18px;z-index:2}
+.gallery-strip{display:flex;gap:8px;overflow-x:auto;margin-top:18px;padding-bottom:6px;scrollbar-width:thin}
+.gallery-strip button{flex:0 0 120px;border:none;padding:0;background:none;outline-offset:2px}
+.gallery-strip img{width:120px;aspect-ratio:3/2;object-fit:cover;object-position:50% 20%;border:3px solid var(--mok)}
+.gallery-strip button.on img{border-color:var(--ju)}
+#zoom{position:fixed;inset:0;z-index:90;background:rgba(15,12,9,.9);display:none;align-items:center;justify-content:center;padding:50px 12px 20px}
+#zoom.on{display:flex}
+#zoom img{max-width:min(1200px,100%);max-height:86vh;object-fit:contain;box-shadow:0 0 0 6px var(--mok)}
+#zclose{position:fixed;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:none;background:var(--hanji);font-size:18px}
+
+/* BGM */
+#bgm-btn{position:fixed;right:16px;bottom:16px;z-index:50;display:none;align-items:center;gap:8px;border:none;background:var(--ink);color:var(--hanji);padding:8px 16px 8px 10px;border-radius:999px;font-size:14px;box-shadow:0 0 0 2px var(--hwang),0 8px 18px rgba(0,0,0,.3)}
+#bgm-btn.on{display:flex}
+#bgm-btn i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--ju);display:grid;place-items:center;font-size:11px}
+
+footer{margin-top:60px;background:var(--ink);color:#bfb29a;font-size:14px}
+footer .wrap{padding:28px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+footer .brand b{color:var(--hanji)}
+
+@media(max-width:900px){
+  .scrolls{grid-template-columns:1fr}
+  .people{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .places{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .region-head{grid-template-columns:1fr}
+  .region-head img{min-height:0;aspect-ratio:2/1}
+}
+@media(max-width:600px){
+  body{font-size:16px}
+  header.site .wrap{height:56px;gap:10px}
+  .brand b{display:none}
+  nav.gnb a{padding:6px 8px;font-size:14.5px}
+  .hero{min-height:560px}
+  .hero .wrap{gap:16px;padding-bottom:32px}
+  .vtitle{font-size:46px}
+  .hero .stamp{width:62px;height:62px;font-size:14px;right:14px;top:14px}
+  section.block{padding-top:56px}
+  .sec-h .han{width:58px;height:58px;font-size:44px}
+  .scroll{padding:28px 20px 24px}
+  .people{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .pcard b{font-size:21px}
+  .places{grid-template-columns:1fr}
+  .tags button{font-size:17px;padding:8px 14px 8px 22px}
+  .sheet .body{padding:18px 18px 22px}
+  .sheet dl{grid-template-columns:72px 1fr}
+  .timeline{padding-left:28px}
+  .tl::before{left:-24px}
+  .tl ul{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop preload="none"><source src="11_bgm.mp3" type="audio/mpeg"></audio>
+
+<div id="gate" role="dialog" aria-modal="true" aria-label="입장">
+  <div class="door l"><span class="ring"></span></div>
+  <div class="door r"><span class="ring"></span></div>
+  <div class="plaque">
+    <div class="hyeonpan"><small>一九一一 · 京城</small><b>경성</b><span>1911년 1월 12일</span></div><br>
+    <button class="seal-btn" id="enter">문을<br>열다</button>
+    <span class="gate-note">♪ 소리가 함께 재생됩니다</span>
+  </div>
+</div>
+
+<header class="site"><div class="wrap">
+  <a class="brand" href="#top"><i>京</i><b>1911년 경성</b></a>
+  <nav class="gnb" aria-label="목차">
+    <a href="#seo"><span>序</span>배경</a>
+    <a href="#sector"><span>勢</span>세력</a>
+    <a href="#place"><span>所</span>장소</a>
+    <a href="#history"><span>年</span>연표</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<section class="hero">
+  <div class="stamp">병합<br>五個月</div>
+  <div class="wrap">
+    <div class="vtitle" aria-hidden="true"><span><i>一</i><i>九</i><i>一</i><i>一</i></span><span class="em"><i>京</i><i>城</i></span></div>
+    <div class="hero-copy">
+      <span class="date">1911. 01. 12 · 경성</span>
+      <h1>총독부 신년 고시가 거리에 나붙은 아침</h1>
+      <p>헌병경찰의 완장이 늘어난 거리, 조선어와 일본어가 뒤섞이고 신구(新舊)의 복장이 같은 골목을 지나간다.</p>
+    </div>
+  </div>
+</section>
+<div class="dancheong"></div>
+
+<section class="block" id="seo"><div class="wrap">
+  <div class="sec-h"><span class="han">序</span><div><h2>배경지식</h2><p>국권을 잃은 지 반년, 경성의 겨울</p></div></div>
+  <div class="scrolls">
+    <article class="scroll">
+      <h3>배경지식</h3>
+      <p>1905년 을사늑약으로 외교권을 박탈당한 대한제국은 1907년 군대 해산을 거쳐, 1910년 8월 29일 국권을 완전히 상실한다.</p>
+      <p>조선총독부가 설치되고 무단통치가 시작된 지 반년, 거리엔 헌병경찰의 완장이 늘고 신년 고시가 나붙었다. 신민회를 겨냥한 안명근 사건(1910.12)과 양기탁 등 검거(1911.1)로 조선인 지식인 사회는 이미 술렁이고 있다.</p>
+      <p class="fore">이 해 9월, 데라우치 총독 암살 모의라는 조작된 혐의로 600여 명이 한꺼번에 끌려가게 될 것이라는 사실을…(105인 사건)</p>
+    </article>
+    <article class="scroll">
+      <h3>문화</h3>
+      <p>라디오·자동차 대중화는 아직 오지 않았다. 전차, 축음기, 활동사진은 '신문물'로 통한다. 조선어와 일본어가 거리에서 뒤섞이고, 신구(新舊)의 복장이 같은 골목을 지나간다.</p>
+    </article>
+  </div>
+</div></section>
+
+<section class="block" id="sector"><div class="wrap">
+  <div class="sec-h"><span class="han">勢</span><div><h2>세력과 인물</h2><p>구역을 고르면 그곳 사람들이 나온다</p></div></div>
+  <div class="tags" role="tablist" id="tags"></div>
+  <div id="regions"></div>
+</div></section>
+
+<section class="block" id="place"><div class="wrap">
+  <div class="sec-h"><span class="han">所</span><div><h2>장소</h2><p>누가 드나들 수 있는가</p></div></div>
+  <div id="places"></div>
+</div></section>
+
+<section class="block" id="history"><div class="wrap">
+  <div class="sec-h"><span class="han">年</span><div><h2>이후의 사건</h2><p>1919년까지</p></div></div>
+  <div class="timeline" id="timeline"></div>
+</div></section>
+</main>
+
+<div class="dancheong"></div>
+<footer><div class="wrap"><span class="brand"><i>京</i><b>1911년 경성</b></span><span>1911년 식민지 조선에서 살아남기</span></div></footer>
+
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="m-name">
+  <div class="sheet">
+    <button id="mclose" aria-label="닫기">✕</button>
+    <img class="namecard" id="m-card" alt="">
+    <div class="dancheong"></div>
+    <div class="body">
+      <h3 id="m-name"></h3>
+      <div class="sub" id="m-sub"></div>
+      <dl id="m-dl"></dl>
+      <div id="m-secret"></div>
+      <div class="gallery-strip" id="m-gal" aria-label="이미지"></div>
+    </div>
+  </div>
+</div>
+<div id="zoom" role="dialog" aria-modal="true" aria-label="크게 보기"><button id="zclose" aria-label="닫기">✕</button><img id="zimg" alt=""></div>
+<button id="bgm-btn" aria-label="음악 재생/정지"><i id="bgm-ic">❚❚</i><span>BGM</span></button>
+
+<script>
+(function(){
+var B = 'https://raw.githubusercontent.com/68ol/11/refs/heads/main/';
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+var REGIONS = [
+  {id:'bon', name:'본정통', tag:'신문물 · 감시', img:'bk1.png', desc:'신문물 상점가, 은행, 경찰서가 밀집한 구역. 삼엄한 감시와 통제가 이루어진다.'},
+  {id:'jong', name:'종로', tag:'조선 전통', img:'bk5.png', desc:'육의전 터와 저잣거리가 있는 조선인의 중심지. 전통과 근대화의 파도가 충돌한다.'},
+  {id:'jeong', name:'정동', tag:'외교 완충', img:'bk12.png', desc:'외국 공사관, 선교사 병원, 근대식 학교가 밀집한 구역. 일제의 공권력이 쉽게 미치지 못한다.'},
+  {id:'out', name:'성곽외곽', tag:'빈민 · 암시장', img:'bk15.png', desc:'토막촌과 유랑민이 모여 사는 한계 구역. 감시망을 피하기 쉬워 비밀 활동의 거점이 된다.'},
+  {id:'all', name:'전 구역', tag:'이동', img:'bk17.png', desc:'특정 섹터에 묶이지 않고 경성 전역을 오가는 인물들.'}
+];
+
+var P = [
+  {r:'bon', k:'h', n:'모노즈미 하나', age:'28세 · 여 · 일본인', job:'총독부 고위관료 가문 영애', type:'ENTP · 3w2 · 혼돈중립', look:'흑발 올림머리 · 적안 · 동백꽃 장식', bio:'어릴 때부터 가문의 재산으로 간주되어, 혼담과 행보 전부를 집안이 결정해왔다. 만성적인 반발심이 있으나 표출하지 않는다. 아가씨다운 우아함 이면에 무력감이 있다.', lang:'조선어 초보'},
+  {r:'bon', k:'k', n:'카트린', age:'25세 · 여 · 프랑스인', job:'양장점 디자이너', type:'ENFP · 7w3 · 혼돈중립', look:'금발 웨이브 · 자수정색 눈', bio:'말이 많고 참견을 좋아하나 눈치가 빠르다.', lang:'조선어 초보 · 일본어 능숙'},
+  {r:'bon', k:'so', n:'후지타 스오', age:'30세 · 남 · 일본인', job:'고등경찰경부', type:'ENTJ · 8w7 · 질서악', look:'흑발흑안', bio:'평민 출신으로 수석 입신, 출세가 곧 자기증명의 수단이었다. 고압적인 태도는 사실 열등감의 보상 기제에 가깝다. 사납고 권위적이지만, 조선인에 대한 차별 인식은 본인도 자각하지 못할 만큼 무의식화되어 있다.', lang:'조선어 중급'},
+  {r:'bon', k:'mr', n:'미야모토 류', age:'40세 · 남 · 일본인', job:'동양척식주식회사 직원', type:'ISTJ · 1w8 · 질서악', look:'흑색 색경 · 올백머리', bio:'조선 입성으로 신분 상승을 체험했다. 능글맞고 사교적이나 비즈니스는 냉혹하고, 강한 자에겐 약하고 약한 자에겐 강하다.', lang:'조선어 불가'},
+
+  {r:'jong', k:'d', n:'윤도섭', age:'26세 · 남', job:'보수 유학자 가문 장손', type:'ENFP · 4w5 · 질서중립', look:'흑발 포니테일 · 흑안 · 접부채', bio:'합병 이후 가문이 강제로 파혼시켰고, 그 뒤로 가벼움이 습관이 되었다. 겉으론 장난스럽지만 속은 깊다.', lang:'일본어 초급'},
+  {r:'jong', k:'hy', n:'홍영하', age:'35세 · 여', job:'기생집 행수', type:'ENTJ · 8w7 · 혼돈중립', look:'쪽머리 · 귀걸이', bio:'기생 출신으로 자력으로 행수 자리까지 올라왔다. 말솜씨가 탁월하다.', lang:'일본어 능숙', sec:['직책', '독립자금 밀지원']},
+  {r:'jong', k:'c', n:'차현도', age:'38세 · 남', job:'관립 한성고등보통학교(1911.11 이후 경성고보) 조선어교사', type:'INTJ · 5w1 · 질서선', look:'안경 · 갈색 단발 · 마른 체격', bio:'교육령 체제 안에서 순종적인 교사를 연기하고 있다. 침착하고 건조하게 다정하며, 나이보다 영민하고 성숙하다.', lang:'일본어 능숙', sec:['배경', '조선광문회의 사전 편찬(말모이류 작업)에 참여 중이다. 105인 사건 검거 국면에서 감시 대상이 될 위험을 안고 있다.']},
+  {r:'jong', k:'j', n:'조지훈', age:'17세 · 남', job:'관립 한성고등보통학교(1911.11 이후 경성고보) 학생', type:'ENFP · 7w6 · 혼돈선', look:'짧은 흑발 · 갈색 눈', bio:'유복한 막내로 자랐지만 내면엔 저항의식이 있다. 겉으론 쾌활하고, 속엔 음침한 구석이 공존한다.', lang:'일본어 초급'},
+  {r:'jong', k:'o', n:'오말순', age:'44세 · 여', job:'포목상 주인', type:'ISTJ · 6w5 · 질서중립', look:'은발 · 동안', bio:'과부가 된 이후 홀로 가게를 일궈왔다. 정이 많아 외상을 잘 해준다.', lang:'일본어 초급'},
+  {r:'jong', k:'y', n:'김윤식', age:'42세 · 남', job:'한학자 (윤도섭의 스승)', type:'ISTJ · 1w6 · 질서선', look:'흰 장발 · 안경', bio:'성균관 출신, 통감부 체제와 병합을 거치며 관직의 길이 완전히 막혔다. 꼰대 중의 꼰대, 잔소리가 많지만 제자를 누구보다 아낀다. 현 치하에 대한 불만을 노골적으로 드러낸다.', lang:'일본어 불가'},
+  {r:'jong', k:'u', n:'최은옥', age:'30세 · 여', job:'비밀 야학교사 (생계 겸업 다수)', type:'INFP · 4w2 · 질서선', look:'흑발 · 적안', bio:'가세가 몰락하며 윤도섭 가문에서 파혼당했다. 나긋하고 소심한 것이 기본값이나, 정작 할 말은 하는 외유내강.', lang:'일본어 중급'},
+  {r:'jong', k:'hs', n:'윤화선', age:'27세 · 여', job:'서양식 찻집 여주인 · 신여성', type:'INFJ · 7w6 · 혼돈중립', look:'흑발 땋은머리 · 갈안', bio:'출가외인 취급을 받아왔다. 현 치하에 수용적이고 기회주의적이지만, 이는 순진함에 가깝다. 말투는 털털한 편.', lang:'일본어 능숙'},
+
+  {r:'jeong', k:'s', n:'연소연', age:'22세 · 여', job:'경성우편국 통신과 교환원', type:'INTJ · 5w6 · 질서중립', look:'포니테일 · 녹안', bio:'츤데레.', lang:'일본어 능숙', sec:['직책', '비밀통신원']},
+  {r:'jeong', k:'m', n:'최명희', age:'24세 · 여', job:'세브란스병원 간호원', type:'ISTP · 9w6 · 질서선', look:'단발 묶음 · 자줏빛 눈', bio:'앤드류 밑에서 수련했다. 매사 귀찮아하는 말투에 설렁설렁한 태도지만 할 건 다 한다.', lang:'일본어 중급'},
+  {r:'jeong', k:'a', n:'앤드류', age:'38세 · 남 · 미국인', job:'세브란스병원 의료선교사', type:'ISTJ · 8w6 · 질서선', look:'금발벽안 · 까칠한 수염 · 줄담배', bio:'본국에서 전쟁 의료봉사 경험이 있다. 골초에 퉁명스럽고, 환자 앞에서도 살갑지 않지만 직업의식은 누구보다 높다.', lang:'조선어 능숙 · 일본어 중급'},
+
+  {r:'out', k:'r', n:'마장미', age:'20세 · 여', job:'고물상', type:'ISTP · 8w6 · 혼돈중립', look:'짧은 단발 · 붉은 목도리 · 화상 흉터', bio:'부모를 잃던 날 화재로 화상을 입었다. 까칠하고 퉁명스럽다.', lang:'일본어 중급'},
+  {r:'out', k:'t', n:'마태수', age:'26세 · 남', job:'암시장 밀수 (現) · 구(舊) 의병', type:'ESTP · 8w7 · 혼돈악', look:'붉은 머리띠 · 뺨 흉터', bio:'어린 시절 부모를 헌병대 습격으로 잃었다. 그 후로 거친 실용주의가 몸에 뱄다. 의병 조직이 와해된 뒤에도 저항의식을 놓지 않았다. 직선적이고 충동적이지만 가끔 침착하며, 의리와 책임감이 강하다.', lang:'일본어 초급'},
+
+  {r:'all', k:'g', n:'강칠성', age:'20세 · 남', job:'인력거꾼', type:'ESFP · 7w8 · 혼돈선', look:'까무잡잡한 피부 · 흑발 · 주황빛 눈 · 다부진 체격 · 반다나', bio:'시원시원한 붙임성이 있고, 구역을 오가며 소문과 정보를 자연스럽게 알게 된다.', lang:'일본어 능숙'},
+  {r:'all', k:'sd', n:'순덕이', age:'11세 · 여', job:'껌·담배 파는 아이', type:'ISFP · 9w6 · 혼돈선', look:'은발 단발 · 벽안 · 주근깨 · 검은 중절모', bio:'눈치가 많고 생존 능력이 높다.', lang:'일본어 능숙'}
+];
+
+var PLACES = [
+  {r:'본정통', items:[
+    ['bk1.png','본정통 상점가','벽돌 양옥과 전차 궤도, 일장기가 걸린 거리. 누구든 출입 가능하나 순찰 밀도가 가장 높다.'],
+    ['bk2.png','동양척식주식회사 출장소','서양식 사무동, 서류더미. 업무 관계자·신분증 소지자만 출입.'],
+    ['bk3.png','카트린 양장점','서양 원단과 유행 잡지가 진열된 곳. 손님이거나 납품처인 경우 출입 가능.'],
+    ['bk4.png','총독부 관사구역','담장 높은 서양식 관사 거리. 관계자·초대장 필요.']]},
+  {r:'종로', items:[
+    ['bk5.png','종로 저잣거리','육의전 터의 좌판과 조선어 소음. 제한 없음. 소문이 가장 많이 도는 곳.'],
+    ['bk6.png','오말순 포목상','필목 더미와 장부 소리. 누구든 출입 가능.'],
+    ['bk7.png','윤씨 가문 본가','고택 겸 서당. 가솔과 문인객만.'],
+    ['bk8.png','비밀 야학당(종로 뒷골목)','민가로 위장. 소개자 필요, 발각 시 전원 검거 위험.'],
+    ['bk9.png','서양식 찻집(윤화선 소유)','양풍 내부, 축음기, 커피 향. 누구든 출입 가능.'],
+    ['bk10.png','관립 한성고등보통학교','근대식 벽돌 교사. 재학생·관계자만.'],
+    ['bk11.png','명월관(기생집)','고급 요릿집. 소개나 재력이 필요.']]},
+  {r:'정동', items:[
+    ['bk12.png','정동 거리','공사관과 선교병원, 근대식 학교가 밀집. 외국인·교인·환자는 자유, 조선인 일반인은 제한적.'],
+    ['bk13.png','경성우편국 통신과','전신기 소리와 공문서 더미. 업무·발신자만.'],
+    ['bk14.png','세브란스병원','서양식 병동. 환자·의료진만.']]},
+  {r:'성곽외곽', items:[
+    ['bk15.png','토막촌·고물상 거리','움집과 판잣집. 누구든 출입 가능하나 본정통 출입자는 경계 대상.'],
+    ['bk16.png','암시장','노점과 밀거래. 소개자 필요.']]},
+  {r:'공용', items:[
+    ['bk17.png','남대문정거장','증기기관차와 인파. 섹터 간 이동 거점, 누구든 출입 가능.']]}
+];
+
+var HISTORY = [
+  ['1911', [['105인 사건 (9월)','데라우치 총독 암살 모의라는 조작된 혐의로 600여 명 검거.']], true],
+  ['1912', [['토지조사령 공포','식민 지배 경제 기반 마련 및 토지 수탈용 법령 본격 공포.'],['독립의군부 결성','임병찬이 고종 밀지 받아 결성. 대한제국 왕정 복고(복벽주의) 지향.']]],
+  ['1913', [['흥사단 창립','안창호가 미주 샌프란시스코에서 실력 양성 및 인재 배양 목적으로 설립.'],['풍기광복단 결성','경북 풍기에서 채기중 중심으로 결성된 무장 비밀결사.']]],
+  ['1914', [['대한광복군 정부 수립','연해주 블라디보스토크에서 이상설·이동휘 중심으로 설립된 최초의 망명 정부.'],['사업용 지목 조사 완료','토지조사사업 가속화로 농민 경작권 박탈 및 소작농화 대대적 진행.']]],
+  ['1915', [['조선국권회복단 결성','대구 달성공원에서 상업 종사자·유림 중심 조직. 국외 독립운동 기지 지원.'],['대한광복회 결성','풍기광복단+조선국권회복단 일부 통합, 박상진 총사령. 공화주의 지향, 친일파 처단 및 군자금 모금.']]],
+  ['1916', [['박중빈 원불교 창시','영광에서 대각 후 원불교 교단 개창.'],['대한광복회 조직망 확대','대구 상덕태상회, 영주 대동상회 등 곡물·잡화 상점을 거점으로 전국 연락망 구축.']]],
+  ['1917', [['대동단결선언 발표','신규식·박은식·조소앙 등 14인 발표. 순종 주권 포기를 국민 주권 계승으로 해석, 공화주의 임시정부 수립 이론 마련.'],['친일파 처단 투쟁','대한광복회가 친일파 도고면장 박용하 처단 등 의열 투쟁 전개.']]],
+  ['1918', [['토지조사사업 완료','토지 대규모 국유화 및 동양척식주식회사 넘기기 완성.'],['무오독립선언','만주·노령 독립운동가 39인(김교헌·조소앙 등)이 발표한 최초의 독립선언서. 무력 항쟁 선언.'],['신한청년당 창단','상하이에서 여운형·김규식 등 결성. 파리강화회의에 김규식 파견 결정.']]],
+  ['1919', [['2·8 독립선언','도쿄 유학생(재일본조선청년독립단) 중심 발표. 3·1 운동의 도화선.'],['3·1 운동','고종 인산일 계기, 전국·해외로 확산된 최대 규모 비폭력 만세 운동.'],['대한민국 임시정부 수립','3·1 운동 결실로 상하이 등 각지 임정 통합 및 출범.'],['의열단 조직','만주 길림에서 김원봉·윤세주 중심 결성. 일제 수뇌부 처단 및 기관 파괴 목적.']]]
+];
+
+// 세력 탭과 인물
+$('tags').innerHTML = REGIONS.map(function(r, i){
+  return '<button role="tab" id="t-' + r.id + '" aria-controls="r-' + r.id + '" aria-selected="' + (i === 0) + '">' + r.name + '</button>';
+}).join('');
+$('regions').innerHTML = REGIONS.map(function(r, i){
+  var ppl = P.map(function(p, j){ return [p, j]; }).filter(function(x){ return x[0].r === r.id; });
+  return '<div class="region' + (i === 0 ? ' on' : '') + '" id="r-' + r.id + '" role="tabpanel" aria-labelledby="t-' + r.id + '">' +
+    '<div class="region-head"><img src="' + B + r.img + '" alt="' + r.name + '" loading="lazy"><div><span class="kicker">' + r.tag + '</span><h3>' + r.name + '<small>' + ppl.length + '인</small></h3><p>' + r.desc + '</p></div></div>' +
+    '<div class="people">' + ppl.map(function(x){
+      var p = x[0];
+      return '<button class="pcard" data-p="' + x[1] + '"><div class="frame"><img src="' + B + p.k + '2.png" alt="' + p.n + '" loading="lazy"></div>' +
+        '<div class="cap"><b>' + p.n + '</b><span class="age">' + p.age.split(' · ')[0] + '</span></div><div class="job">' + esc(p.job) + '</div></button>';
+    }).join('') + '</div></div>';
+}).join('');
+var tabs = document.querySelectorAll('#tags button');
+tabs.forEach(function(b){ b.addEventListener('click', function(){
+  tabs.forEach(function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+  document.querySelectorAll('.region').forEach(function(r){ r.classList.toggle('on', r.id === b.getAttribute('aria-controls')); });
+}); });
+
+// 장소
+$('places').innerHTML = PLACES.map(function(g){
+  return '<div class="places-group"><h3>' + g.r + '</h3><div class="places">' + g.items.map(function(it){
+    return '<article class="place"><button data-zoom="' + it[0] + '" aria-label="' + it[1] + ' 크게 보기"><img src="' + B + it[0] + '" alt="' + it[1] + '" loading="lazy"></button><div><b>' + it[1] + '</b><p>' + it[2] + '</p></div></article>';
+  }).join('') + '</div></div>';
+}).join('');
+
+// 연표
+$('timeline').innerHTML = HISTORY.map(function(y){
+  return '<div class="tl' + (y[2] ? ' now' : '') + '"><h4>' + y[0] + '년</h4><ul>' + y[1].map(function(e){ return '<li><b>' + e[0] + '</b>' + e[1] + '</li>'; }).join('') + '</ul></div>';
+}).join('');
+
+// 인물 모달
+var modal = $('modal'), last = null;
+function openP(i){
+  var p = P[i]; last = document.activeElement;
+  $('m-card').src = B + p.k + '1.png'; $('m-card').alt = p.n + ' 이름패';
+  $('m-name').textContent = p.n;
+  $('m-sub').textContent = REGIONS.filter(function(r){ return r.id === p.r; })[0].name + ' · ' + p.age;
+  var rows = [['직책', p.job], ['성격유형', p.type], ['외형', p.look], ['배경·성격', p.bio], ['언어', p.lang]];
+  $('m-dl').innerHTML = rows.map(function(r){ return '<dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('');
+  $('m-secret').innerHTML = p.sec ? '<button class="milseo" aria-expanded="false"><span class="lbl"><i>密</i>' + p.sec[0] + ' 비밀<small>봉인을 뜯어 보기</small></span><span class="txt">' + esc(p.sec[1]) + '</span></button>' : '';
+  var sb = $('m-secret').querySelector('.milseo');
+  if (sb) sb.addEventListener('click', function(){ var o = sb.classList.toggle('open'); sb.setAttribute('aria-expanded', o); });
+  var g = '';
+  var SKIP = {a3:1, s8:1};
+  for (var n = 2; n <= 11; n++) if (!SKIP[p.k + n]) g += '<button data-g="' + p.k + n + '.png"' + (n === 2 ? ' class="on"' : '') + ' aria-label="' + p.n + ' 이미지 ' + (n - 1) + '"><img src="' + B + p.k + n + '.png" alt="" loading="lazy"></button>';
+  $('m-gal').innerHTML = g;
+  modal.classList.add('on'); modal.scrollTop = 0; document.body.style.overflow = 'hidden'; $('mclose').focus();
+}
+function closeP(){ modal.classList.remove('on'); document.body.style.overflow = ''; if (last) last.focus(); }
+document.addEventListener('click', function(e){
+  var c = e.target.closest('[data-p]'); if (c) { openP(+c.dataset.p); return; }
+  var z = e.target.closest('[data-zoom],[data-g]');
+  if (z) { $('zimg').src = B + (z.dataset.zoom || z.dataset.g); $('zimg').alt = z.getAttribute('aria-label') || ''; $('zoom').classList.add('on'); document.body.style.overflow = 'hidden'; $('zclose').focus(); }
+});
+$('mclose').onclick = closeP;
+modal.addEventListener('click', function(e){ if (e.target === modal) closeP(); });
+function closeZ(){ $('zoom').classList.remove('on'); if (!modal.classList.contains('on')) document.body.style.overflow = ''; }
+$('zclose').onclick = closeZ;
+$('zoom').addEventListener('click', function(e){ if (e.target === $('zoom')) closeZ(); });
+document.addEventListener('keydown', function(e){
+  if (e.key !== 'Escape') return;
+  if ($('zoom').classList.contains('on')) closeZ(); else if (modal.classList.contains('on')) closeP();
+});
+
+// 목차 활성화
+var links = document.querySelectorAll('nav.gnb a');
+var io = new IntersectionObserver(function(ents){ ents.forEach(function(en){ if (en.isIntersecting) links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id); }); }); }, {rootMargin:'-45% 0px -50% 0px'});
+['seo','sector','place','history'].forEach(function(id){ io.observe($(id)); });
+
+// 대문·BGM
+var bgm = $('bgm'), bb = $('bgm-btn');
+function setIc(){ $('bgm-ic').textContent = bgm.paused ? '▶' : '❚❚'; }
+bgm.addEventListener('error', function(){ bb.classList.remove('on'); }, true);
+$('enter').addEventListener('click', function(){
+  $('gate').classList.add('open');
+  setTimeout(function(){ $('gate').style.display = 'none'; }, 1600);
+  bgm.volume = 0.45;
+  var pr = bgm.play(); bb.classList.add('on');
+  if (pr) pr.then(setIc).catch(function(){ setIc(); });
+});
+bb.addEventListener('click', function(){ if (bgm.paused) bgm.play().then(setIc).catch(setIc); else { bgm.pause(); setIc(); } });
+})();
+</script>
+</body>
+</html>
